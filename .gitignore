@@ -1,0 +1,4 @@
+.venv/
+.vscode/
+result.txt
+geckodriver.log
