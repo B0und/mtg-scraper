@@ -36,35 +36,55 @@ for card_name in card_names:
     cities = []
     shop_names = []
 
-    for i in range(10, 10 + 2 * entries_on_page - 1, 2):
+    for outer_big_card_counter in range(10, 10 + 2 * entries_on_page - 1, 2):
         city = soup.select_one(
-            f"table.NoteDivWidth:nth-child({i}) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > center:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(3) > nobr:nth-child(1)"
+            f"table.NoteDivWidth:nth-child({outer_big_card_counter}) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > center:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(3) > nobr:nth-child(1)"
         )
         cities.append(city.text)
 
         shop = soup.select_one(
-            f"table.NoteDivWidth:nth-child({i}) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > center:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > th:nth-child(2)"
+            f"table.NoteDivWidth:nth-child({outer_big_card_counter}) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > center:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > th:nth-child(2)"
         )
 
         shop_name = shop.text.replace("\xa0\xa0", "")
         shop_names.append(shop_name)
 
         child_card_count = len(
-            soup.select(f"table.NoteDivWidth:nth-child({i}) .shadow")
+            soup.select(
+                f"table.NoteDivWidth:nth-child({outer_big_card_counter}) .shadow"
+            )
         )
         # print(len(child_card_count))
 
-        for j in range(1, 2 * child_card_count + 1, 2):
-            price = soup.select_one(
-                f"table.NoteDivWidth:nth-child({i}) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child({j}) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(2) > b:last-child"
+        for count, inner_card_counter in enumerate(
+            range(1, 2 * child_card_count + 1, 2)
+        ):
+            print(f"{inner_card_counter=}")
+            # price = soup.select_one(
+            #     f"table.NoteDivWidth:nth-child({outer_big_card_counter}) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child({inner_card_counter}) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:last-child"
+            # )
+            inner_card = soup.select_one(
+                f"table.NoteDivWidth:nth-child({outer_big_card_counter}) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child({inner_card_counter})"
             )
-            if price:
-                print(price.text)
-            else:
-                print("None")
+            if inner_card:
+                print(inner_card)
+                # price = inner_card.select_one(".txt15:last-child")
+                # if price:
+                #     print(price)
+                #     print(price.text)
+                #     print(list(price.strings))
+                #     print(list(price.stripped_strings))
+                # else:
+                #     print("None")
+                print("-----------------")
 
         print("$$$$$$$$$$$$$$$$$")
+
 
     print(cities)
     print(shop_names)
 
+
+# table.NoteDivWidth:nth-child(12) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child(1)
+
+# table.NoteDivWidth:nth-child(12) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child(3)
