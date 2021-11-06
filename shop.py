@@ -64,7 +64,7 @@ for card_name in card_names:
             #     f"table.NoteDivWidth:nth-child({outer_big_card_counter}) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child({inner_card_counter}) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:last-child"
             # )
             inner_card = soup.select_one(
-                f"table.NoteDivWidth:nth-child({outer_big_card_counter}) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child({inner_card_counter})"
+                f"table.NoteDivWidth:nth-child({outer_big_card_counter})"
             )
             if inner_card:
                 print(inner_card)
@@ -80,6 +80,7 @@ for card_name in card_names:
 
         print("$$$$$$$$$$$$$$$$$")
 
+    break
 
     print(cities)
     print(shop_names)
